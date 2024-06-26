@@ -5,11 +5,6 @@ __pycache__/
 # Ignorar archivos de entorno virtual
 pyenv.cfg
 
-# Ignorar archivos de configuración y API keys
-*.key
-*.config
-config/
-
 # Ignorar archivos de dependencias de Python
 *.egg-info/
 .eggs/
