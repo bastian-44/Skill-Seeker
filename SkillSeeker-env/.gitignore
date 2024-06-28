@@ -1,0 +1,32 @@
+# Ignorar archivos de configuración de Python
+*.pyc
+__pycache__/
+
+# Ignorar archivos de entorno virtual
+pyenv.cfg
+
+
+# Ignorar archivos de dependencias de Python
+*.egg-info/
+.eggs/
+.env
+.venv
+Pipfile.lock
+Pipfile
+
+# Ignorar archivos de configuración del sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar carpetas específicas del proyecto
+etc/
+Include/
+Lib/
+share/
+Scripts/
+
+# Ignorar archivos de logs
+*.log
+
+# Ignorar archivos temporales del sistema operativo
+*.swp
