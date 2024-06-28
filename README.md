@@ -17,7 +17,7 @@
 4) Javier Hormaechea  202003017-0
 
 
-## -Cómo correr el código-
+## **Cómo correr el código**
 
 1) Una vez clonado el repositorio, cree un entorno virual dentro de la carpeta  con "python -m venv SkillSeeker". Entre a SkillSeeker/cripts y ejecute ./activate)
 2) Ejecute pip install -r requirements.txt en la cmd para asegurarse de instalar todo lo que ocupa el programa. Debe tener uvicorn instalado (si no, pip install uvicorn)
