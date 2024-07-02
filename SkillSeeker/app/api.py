@@ -7,6 +7,8 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import Request as FAPIRequest
+from fastapi.responses import RedirectResponse
+from fastapi.routing import APIRouter
 router = APIRouter()
 
 router.mount("/static", StaticFiles(directory="static"), name="static")
@@ -44,7 +46,7 @@ async def login_(username: str = Form(...), password: str = Form(...)):
     if user is None or not verify_password(password, user[3]):
         raise HTTPException(status_code=400, detail="Incorrect rut or password")
     else:
-        return user[0]
+        return RedirectResponse(url="/menu", status_code=303)
 
 @router.post("/request")
 async def request(request: Request):
