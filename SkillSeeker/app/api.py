@@ -146,3 +146,20 @@ async def read_item(request: FAPIRequest):
     return templates.TemplateResponse(
         request=request, name="menu.html"
     )
+@router.get("/menu/request", response_class=HTMLResponse)
+async def read_item(request: FAPIRequest):
+    return templates.TemplateResponse(
+        request=request, name="request.html"
+    )
+
+@router.get("/menu/history", response_class=HTMLResponse)
+async def read_item(request: FAPIRequest):
+    return templates.TemplateResponse(
+        request=request, name="history.html"
+    )
+
+@router.get("/menu/globalh", response_class=HTMLResponse)
+async def read_item(request: FAPIRequest):
+    return templates.TemplateResponse(
+        request=request, name="globalh.html"
+    )
