@@ -1,8 +1,11 @@
 import requests
 from pydantic import BaseModel
 from typing import Optional
-from config.config import openai_api_key, bing_search_api_key, bing_search_endpoint
-
+from config.config import bing_search_api_key, bing_search_endpoint
+import textwrap
+import google.generativeai as genai
+from IPython.display import display
+from IPython.display import Markdown
 
 class Planner(BaseModel):
     name: str
@@ -72,25 +75,22 @@ class Request(BaseModel):
         
 class AiExtractor:
     def __init__(self, query, request):
-        """
-        openai.api_key = openai_api_key
-        response = openai.Completion.create(
-            model='gpt-3.5-turbo-instruct',
-            prompt='Extrae la información del siguiente texto y quiero que la entregues en el siguiente formato: '
-                   'Taller, Descripción del taller, descripción del líder del taller, Chile '
-                   'El taller debería incluir en menos de 3 palabras a qué taller se refiere, la descripción del taller es lo que se hará en él, '
-                   'la descripción del líder del taller es lo que se espera que el líder del taller sepa hacer para la realización del taller y Chile es para referenciar que la busqueda sera en Chile. '
-                   'El texto es el siguiente: ' + query,
-            temperature=0,
-            max_tokens=60,
-            top_p=1,
-            frequency_penalty=0.5,
-            presence_penalty=0,
-        )
+
+        genai.configure(api_key = google_api)
+        modelo = genai.GenerativeModel('gemini-pro')
+
+        def to_markdown(text):
+            text = text.replace('•', '  *')
+            return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
         
-        searcher = Searcher(response.choices[0].text, request)
-        """
-        searcher = Searcher("Taller de Te para personas adultas, que aprendan de tipos de te y prepararlos", request)  
+        respuesta = modelo.generate_content('Extrae la información del siguiente texto y quiero que la entregues en el siguiente formato: '
+                        'Taller, Descripción del taller, descripción del líder del taller, Chile. '
+                        'El taller debería incluir en menos de 3 palabras a qué taller se refiere, la descripción del taller es lo que se hará en él, '
+                        'la descripción del líder del taller es lo que se espera que el líder del taller sepa hacer para la realización del taller y Chile es para referenciar que la búsqueda será en Chile. '
+                        'El texto es el siguiente: ' + query)
+
+        
+        self.searcher = Searcher(respuesta.text, request)
 
 class Searcher:
     def __init__(self, query, request):
