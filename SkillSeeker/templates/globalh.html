@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Global History</title>
+  <link href="{{ url_for('static', path='/css/globalh.css') }}" rel="stylesheet">
+
+</head>
+<body>
+  <div class="buttons-container">
+      <a href="/menu/request" id="button1" class="button">Request</a>
+      <a href="/menu/history" id="button2" class="button">History</a>
+      <a href="/menu/globalh" id="button3" class="button">Global History</a>
+  </div> 
+  <div class="container">
+    <h1>Historial Global de Talleristas Favoritos</h1>
+    <div id="favorites-list">
+        {% if workshop_leaders %}
+            <ul>
+            {% for leader in workshop_leaders %}
+                <li>
+                    ID: {{ leader.id }}, Nombre: {{ leader.name }}
+                    <form action="/favorite/{{ leader.id }}" method="post" style="display:inline;">
+                        <button type="submit">Marcar como Favorito</button>
+                    </form>
+                    <form action="/unfavorite/{{ leader.id }}" method="post" style="display:inline;">
+                        <button type="submit">Desmarcar como Favorito</button>
+                    </form>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay talleristas favoritos.</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

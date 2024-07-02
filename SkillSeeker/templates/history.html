@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu</title>
+  <link href="{{ url_for('static', path='/css/history.css') }}" rel="stylesheet">
+
+</head>
+<body>
+  <div class="buttons-container">
+      <a href="/menu/request" id="button1" class="button">Request</a>
+      <a href="/menu/history" id="button2" class="button">History</a>
+      <a href="/menu/globalh" id="button3" class="button">Global History</a>
+  </div> 
+  <div class="container">
+    <h1>Historial de Solicitudes</h1>
+    <form action="/requesthistory" method="get">
+        <label for="planner_id">ID del Planificador:</label>
+        <input type="number" id="planner_id" name="planner_id" required>
+        <button type="submit">Buscar</button>
+    </form>
+    <div id="request-history">
+        {% if requests %}
+            <ul>
+            {% for request in requests %}
+                <li>Solicitud ID: {{ request.id }}, Descripción: {{ request.description }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay solicitudes para este planificador.</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
